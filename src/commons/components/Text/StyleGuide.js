@@ -5,7 +5,13 @@ const StyleGuide = {
 			letterSpacing: 0.6
 		},
 		body: {
-			fontSize: 15
+			fontSize: 18,
+			letterSpacing: 0.4,
+			lineHeight: 25
+		},
+		headline: {
+			fontSize: 24,
+			fontWeight: '500'
 		}
 	}
 }
