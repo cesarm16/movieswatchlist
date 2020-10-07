@@ -1,12 +1,19 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { TextInput, Button } from '../../commons/components'
+import { useDispatch, useSelector } from 'react-redux'
 
 function AddMovie() {
+	const dispatch = useDispatch()
+
+	function dispatchtest() {
+		dispatch({ type: 'TEST' })
+	}
+
 	return (
 		<View style={styles.container}>
 			<TextInput placeholder="New movie..." style={styles.textinput}></TextInput>
-			<Button>Add</Button>
+			<Button onPress={dispatchtest}>Add</Button>
 		</View>
 	)
 }

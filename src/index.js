@@ -1,8 +1,16 @@
 import React from 'react'
 import Watchlist from './Watchlist'
+import { Provider } from 'react-redux'
+import configureStore from './state/store'
+
+const store = configureStore()
 
 function App() {
-	return <Watchlist></Watchlist>
+	return (
+		<Provider store={store}>
+			<Watchlist></Watchlist>
+		</Provider>
+	)
 }
 
 export default App
