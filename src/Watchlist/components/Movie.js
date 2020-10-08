@@ -2,22 +2,32 @@ import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { Text } from '../../commons/components'
 import Colors from '../../commons/Colors'
+import { toggleWatchedMovie } from '../../state/actions'
+import { useDispatch } from 'react-redux'
 
 const CHECK_ICON = require('../../../assets/images/check.png')
 
-function Movie({ typed, result, watched }) {
+function Movie({ typed, result, watched, id }) {
+	const dispatch = useDispatch()
+
+	function toggle() {
+		dispatch(toggleWatchedMovie(id))
+	}
+
 	return (
 		<View style={[styles.container, watched ? styles.watched : styles.towatch]}>
-			<CheckBox watched={watched}></CheckBox>
+			<CheckBox watched={watched} onPress={toggle}></CheckBox>
 			<Text style={[styles.text, watched ? styles.watchedtext : null]}>{typed}</Text>
 			{result && <Image source={{ uri: result.posters.thumbnail }} style={styles.image}></Image>}
 		</View>
 	)
 }
 
-function CheckBox({ watched }) {
+function CheckBox({ watched, onPress }) {
 	return (
-		<TouchableOpacity style={[styles.checkbox, watched ? styles.watchedcheckbox : null]}>
+		<TouchableOpacity
+			style={[styles.checkbox, watched ? styles.watchedcheckbox : null]}
+			onPress={onPress}>
 			{watched && <Image source={CHECK_ICON} style={styles.checkicon}></Image>}
 		</TouchableOpacity>
 	)

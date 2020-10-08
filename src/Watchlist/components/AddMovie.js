@@ -1,19 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { TextInput, Button } from '../../commons/components'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { addMovie } from '../../state/actions'
 
 function AddMovie() {
+	const [newMovie, setNewMovie] = useState('')
 	const dispatch = useDispatch()
 
-	function dispatchtest() {
-		dispatch({ type: 'TEST' })
+	function addNewMovie() {
+		dispatch(addMovie(newMovie))
 	}
 
 	return (
 		<View style={styles.container}>
-			<TextInput placeholder="New movie..." style={styles.textinput}></TextInput>
-			<Button onPress={dispatchtest}>Add</Button>
+			<TextInput
+				placeholder="New movie..."
+				style={styles.textinput}
+				onChangeText={setNewMovie}></TextInput>
+			<Button onPress={addNewMovie}>Add</Button>
 		</View>
 	)
 }
