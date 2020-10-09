@@ -12,6 +12,10 @@ const StyleGuide = {
 		headline: {
 			fontSize: 24,
 			fontWeight: '500'
+		},
+		footnote: {
+			fontSize: 14,
+			letterSpacing: 0.2
 		}
 	}
 }

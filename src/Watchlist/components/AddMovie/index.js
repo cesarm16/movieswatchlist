@@ -1,18 +1,23 @@
-import React, { useState, createRef } from 'react'
+import React, { useState, createRef, useEffect } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { TextInput, Button } from '../../commons/components'
+import { TextInput, Button, Text } from '../../../commons/components'
 import { useDispatch } from 'react-redux'
-import { addMovie } from '../../state/actions'
+import { addMovie } from '../../../state/actions'
 import { Transition, Transitioning } from 'react-native-reanimated'
-import Colors from '../../commons/Colors'
+import Colors from '../../../commons/Colors'
+import useDebounce from './components/useDebounce'
+import Suggestions from './components/Suggestions'
 
 function AddMovie({ runAnimation, onFocus, onBlur }) {
 	const [newMovie, setNewMovie] = useState('')
 	const [inFocus, setInputOnFocus] = useState(false)
+
 	const dispatch = useDispatch()
+
 	const inputRef = createRef()
 	const animationRef = createRef()
-	const transition = <Transition.In type="fade"></Transition.In>
+
+	const debounceMovieSearch = useDebounce(newMovie, 500)
 
 	function addNewMovie() {
 		inputRef.current.blur()
@@ -34,16 +39,21 @@ function AddMovie({ runAnimation, onFocus, onBlur }) {
 	return (
 		<Transitioning.View
 			ref={animationRef}
-			transition={transition}
+			transition={<Transition.In type="fade" durationMs={150}></Transition.In>}
 			style={[
 				StyleSheet.absoluteFill,
 				{
 					bottom: inFocus ? 0 : null
 				}
 			]}>
-			{inFocus && <View style={styles.curtain}></View>}
+			{inFocus && (
+				<View style={styles.curtain}>
+					<Suggestions searchTerm={debounceMovieSearch}></Suggestions>
+				</View>
+			)}
 			<View style={styles.container}>
 				<TextInput
+					returnKeyType="default"
 					ref={inputRef}
 					onFocus={inputOnFocus}
 					onBlur={inputOnBlur}
@@ -63,7 +73,11 @@ const styles = StyleSheet.create({
 		flexDirection: 'row'
 	},
 	textinput: { flex: 1, marginRight: 12 },
-	curtain: { ...StyleSheet.absoluteFillObject, backgroundColor: Colors.background }
+	curtain: {
+		...StyleSheet.absoluteFillObject,
+		backgroundColor: Colors.background,
+		paddingTop: 57
+	}
 })
 
 export default AddMovie

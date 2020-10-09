@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 		backgroundColor: Colors.background
 	},
 	header: { paddingTop: 8, paddingBottom: 16 },
-	scrollview: { paddingBottom: 32, paddingTop: 57 }
+	scrollview: { paddingBottom: 32, paddingTop: 57, flexGrow: 1 }
 })
 
 export default Watchlist
