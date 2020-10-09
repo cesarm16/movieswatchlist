@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { View, TextInput, StyleSheet } from 'react-native'
 import Colors from '../../Colors'
 
-function Input({ style, ...props }) {
+function Input({ style, ...props }, ref) {
 	return (
 		<View style={[styles.container, style]}>
 			<TextInput
+				ref={ref}
 				autoCorrect={false}
 				style={styles.input}
 				placeholderTextColor={Colors.lightgray}
@@ -30,4 +31,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default Input
+export default forwardRef(Input)
