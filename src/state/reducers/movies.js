@@ -4,12 +4,12 @@ function movies(state = [], action) {
 	switch (action.type) {
 		case ADD_MOVIE:
 			return [
-				...state,
 				{
 					id: action.id,
 					typed: action.typed,
 					watched: false
-				}
+				},
+				...state
 			]
 		case TOGGLE_WATCHED:
 			return state.map((movie) =>

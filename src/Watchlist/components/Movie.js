@@ -7,11 +7,12 @@ import { useDispatch } from 'react-redux'
 
 const CHECK_ICON = require('../../../assets/images/check.png')
 
-function Movie({ typed, result, watched, id }) {
+function Movie({ typed, result, watched, id, runAnimation }) {
 	const dispatch = useDispatch()
 
 	function toggle() {
 		dispatch(toggleWatchedMovie(id))
+		if (runAnimation) runAnimation()
 	}
 
 	return (

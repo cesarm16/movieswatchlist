@@ -4,7 +4,7 @@ import { Text } from '../../commons/components'
 import Movie from './Movie'
 import { useSelector } from 'react-redux'
 
-function Watched() {
+function Watched({ runAnimation }) {
 	const movies = useSelector((state) => state.movies)
 
 	return (
@@ -12,7 +12,12 @@ function Watched() {
 			<Text type="headline" style={{ marginBottom: 8 }}>
 				Watched
 			</Text>
-			{movies.map((movie) => movie.watched && <Movie key={movie.id} watched {...movie}></Movie>)}
+			{movies.map(
+				(movie) =>
+					movie.watched && (
+						<Movie key={movie.id} runAnimation={runAnimation} watched {...movie}></Movie>
+					)
+			)}
 		</View>
 	)
 }

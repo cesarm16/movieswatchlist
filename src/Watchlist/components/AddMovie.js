@@ -4,11 +4,12 @@ import { TextInput, Button } from '../../commons/components'
 import { useDispatch } from 'react-redux'
 import { addMovie } from '../../state/actions'
 
-function AddMovie() {
+function AddMovie({ runAnimation }) {
 	const [newMovie, setNewMovie] = useState('')
 	const dispatch = useDispatch()
 
 	function addNewMovie() {
+		if (runAnimation) runAnimation()
 		dispatch(addMovie(newMovie))
 	}
 
