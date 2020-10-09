@@ -1,4 +1,4 @@
-import React, { createRef } from 'react'
+import React, { createRef, useState } from 'react'
 import { SafeAreaView, StyleSheet, View, ScrollView } from 'react-native'
 import { Text } from '../commons/components'
 import AddMovie from './components/AddMovie'
@@ -23,6 +23,7 @@ function Watchlist() {
 }
 
 function Content() {
+	const [scrollEnable, toggleScroll] = useState(true)
 	const transition = (
 		<Transition.Together propagation="bottom">
 			<Transition.In type="slide-right" durationMs={150}></Transition.In>
@@ -37,12 +38,26 @@ function Content() {
 		ref.current.animateNextTransition()
 	}
 
+	function disableScroll() {
+		toggleScroll(false)
+	}
+
+	function enableScroll() {
+		toggleScroll(true)
+	}
+
 	return (
 		<Transitioning.View ref={ref} transition={transition} style={styles.container}>
-			<ScrollView contentContainerStyle={styles.scrollview}>
-				<AddMovie runAnimation={runAnimation}></AddMovie>
+			<ScrollView
+				contentContainerStyle={styles.scrollview}
+				scrollEnabled={scrollEnable}
+				keyboardShouldPersistTaps="handled">
 				<ToWatch runAnimation={runAnimation}></ToWatch>
 				<Watched runAnimation={runAnimation}></Watched>
+				<AddMovie
+					runAnimation={runAnimation}
+					onBlur={enableScroll}
+					onFocus={disableScroll}></AddMovie>
 			</ScrollView>
 		</Transitioning.View>
 	)
@@ -54,7 +69,7 @@ const styles = StyleSheet.create({
 		backgroundColor: Colors.background
 	},
 	header: { paddingTop: 8, paddingBottom: 16 },
-	scrollview: { paddingBottom: 32 }
+	scrollview: { paddingBottom: 32, paddingTop: 57 }
 })
 
 export default Watchlist
