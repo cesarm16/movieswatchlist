@@ -24,9 +24,9 @@ function Watchlist() {
 
 function Content() {
 	const transition = (
-		<Transition.Together>
+		<Transition.Together propagation="bottom">
 			<Transition.In type="slide-right" durationMs={150}></Transition.In>
-			<Transition.Change interpolation="linear" propagation={'bottom'}></Transition.Change>
+			<Transition.Change interpolation="linear" durationMs={150}></Transition.Change>
 			<Transition.Out type="slide-right" durationMs={150}></Transition.Out>
 		</Transition.Together>
 	)
@@ -38,8 +38,8 @@ function Content() {
 	}
 
 	return (
-		<Transitioning.View ref={ref} transition={transition}>
-			<ScrollView>
+		<Transitioning.View ref={ref} transition={transition} style={styles.container}>
+			<ScrollView contentContainerStyle={styles.scrollview}>
 				<AddMovie runAnimation={runAnimation}></AddMovie>
 				<ToWatch runAnimation={runAnimation}></ToWatch>
 				<Watched runAnimation={runAnimation}></Watched>
@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: Colors.background
 	},
-	header: { paddingTop: 8, paddingBottom: 16 }
+	header: { paddingTop: 8, paddingBottom: 16 },
+	scrollview: { paddingBottom: 32 }
 })
 
 export default Watchlist
