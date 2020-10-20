@@ -2,7 +2,7 @@ import React, { useState, createRef, useEffect } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { TextInput, Button, Text } from '../../../commons/components'
 import { useDispatch } from 'react-redux'
-import { addMovie } from '../../../state/actions'
+import { addMovie, lookAPoster } from '../../../state/actions'
 import { Transition, Transitioning } from 'react-native-reanimated'
 import Colors from '../../../commons/Colors'
 import useDebounce from './components/useDebounce'
@@ -21,8 +21,9 @@ function AddMovie({ runAnimation, onFocus, onBlur }) {
 
 	function addNewMovie() {
 		inputRef.current.blur()
-		dispatch(addMovie(newMovie))
+		const { id } = dispatch(addMovie(newMovie))
 		if (runAnimation) runAnimation()
+		dispatch(lookAPoster(newMovie, id))
 	}
 
 	function inputOnFocus() {

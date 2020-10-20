@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 
 const CHECK_ICON = require('../../../assets/images/check.png')
 
-function Movie({ typed, result, watched, id, runAnimation }) {
+function Movie({ typed, poster, watched, id, runAnimation }) {
 	const dispatch = useDispatch()
 
 	function toggle() {
@@ -19,7 +19,7 @@ function Movie({ typed, result, watched, id, runAnimation }) {
 		<View style={[styles.container, watched ? styles.watched : styles.towatch]}>
 			<CheckBox watched={watched} onPress={toggle}></CheckBox>
 			<Text style={[styles.text, watched ? styles.watchedtext : null]}>{typed}</Text>
-			{result && <Image source={{ uri: result.posters.thumbnail }} style={styles.image}></Image>}
+			{poster && <Image source={{ uri: poster }} style={styles.image}></Image>}
 		</View>
 	)
 }

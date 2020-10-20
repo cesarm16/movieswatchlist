@@ -1,2 +1,3 @@
 export const TOGGLE_WATCHED = 'TOGGLE_WATCHED'
 export const ADD_MOVIE = 'ADD_MOVIE'
+export const LOOK_FOR_A_POSTER = 'LOOK_FOR_A_POSTER'
